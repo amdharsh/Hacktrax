@@ -33,6 +33,35 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--dm);background:var(--bg);color:var(--ink);overflow-x:hidden;cursor:none}
 
+/* BACKGROUND TEXTURE */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    /* Fine dot grid */
+    radial-gradient(circle,rgba(37,99,168,0.13) 1px,transparent 1px),
+    /* Subtle diagonal lines */
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(139,115,85,0.035) 40px,
+      rgba(139,115,85,0.035) 41px
+    );
+  background-size:28px 28px, 100% 100%;
+}
+body::after{
+  content:'';
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    /* Top-right warm amber glow */
+    radial-gradient(ellipse 60% 50% at 85% 10%, rgba(196,170,135,0.22) 0%, transparent 70%),
+    /* Bottom-left cool blue glow */
+    radial-gradient(ellipse 55% 45% at 8% 90%, rgba(37,99,168,0.10) 0%, transparent 70%),
+    /* Centre soft warm ring */
+    radial-gradient(ellipse 40% 35% at 50% 50%, rgba(240,234,222,0.0) 0%, transparent 100%);
+}
+
 /* CURSOR */
 #cur{width:14px;height:14px;border:1.5px solid var(--blue);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .18s,border-color .18s}
 #cur2{width:4px;height:4px;background:var(--blue);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
@@ -119,49 +148,37 @@ nav.scrolled{
 
 /* HERO RIGHT */
 .hero-right{position:relative;height:520px;animation:fadeUp .9s .2s ease both}
-.h-card{
+
+/* Risk Radar Card */
+.risk-radar-card{
+  inset:0;position:absolute;
   background:var(--white);
   border:1px solid var(--border2);
-  border-radius:16px;
-  box-shadow:0 8px 40px rgba(37,99,168,.08);
-  position:absolute;
+  border-radius:20px;
+  box-shadow:0 8px 48px rgba(37,99,168,.10);
+  padding:28px 32px;
+  display:flex;flex-direction:column;gap:18px;
+  overflow:hidden;
 }
-.h-main{inset:0;padding:32px;display:flex;flex-direction:column;gap:20px}
-.hc-head{display:flex;justify-content:space-between;align-items:center}
-.hc-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase}
-.hc-live{display:flex;align-items:center;gap:6px;background:#ecfdf5;border:1px solid #6ee7b7;padding:4px 10px;border-radius:100px}
-.hc-live-dot{width:5px;height:5px;background:#10b981;border-radius:50%;animation:blink 1.5s ease infinite}
-.hc-live-text{font-size:10px;font-weight:600;color:#059669;letter-spacing:.08em}
-.bm-rows{display:flex;flex-direction:column;gap:12px}
-.bm-r{display:flex;align-items:center;gap:10px}
-.bm-n{font-size:11px;font-weight:500;color:var(--ink3);width:58px;flex-shrink:0}
-.bm-t{flex:1;height:5px;background:var(--bg3);border-radius:100px;overflow:hidden}
-.bm-f{height:100%;border-radius:100px;animation:barw 1.4s cubic-bezier(.16,1,.3,1) both}
-@keyframes barw{from{width:0!important}}
-.bm-f.ok{background:var(--blue)}
-.bm-f.warn{background:#f59e0b}
-.bm-f.hi{background:#ef4444}
-.bm-v{font-size:11px;font-weight:600;color:var(--ink);width:32px;text-align:right}
-.result-chip{
-  display:flex;align-items:center;gap:10px;
+.rrc-head{display:flex;justify-content:space-between;align-items:center}
+.rrc-title{font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--ink3);text-transform:uppercase}
+.rrc-badge{display:flex;align-items:center;gap:6px;background:var(--blue-pale);border:1px solid var(--border);padding:4px 11px;border-radius:100px}
+.rrc-badge-dot{width:5px;height:5px;background:var(--blue);border-radius:50%;animation:blink 2s ease infinite}
+.rrc-badge-text{font-size:10px;font-weight:600;color:var(--blue);letter-spacing:.08em}
+.rrc-canvas-wrap{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+#riskCanvas{display:block}
+.rrc-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px}
+.rrc-leg-item{display:flex;align-items:center;gap:7px}
+.rrc-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rrc-leg-label{font-size:11px;font-weight:500;color:var(--ink3)}
+.rrc-leg-val{font-size:11px;font-weight:700;margin-left:auto}
+.rrc-footer{
   background:var(--blue-pale);border:1px solid var(--border);
-  border-radius:10px;padding:14px 16px;margin-top:auto;
+  border-radius:10px;padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;
 }
-.rc-icon{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.rc-icon svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2}
-.rc-main{font-size:13px;font-weight:600;color:var(--ink)}
-.rc-sub{font-size:11px;color:var(--ink3);margin-top:2px}
-.rc-conf{font-family:var(--cg);font-size:24px;font-weight:600;color:var(--blue);margin-left:auto}
-
-.h-float1{width:186px;top:-18px;right:-24px;padding:18px 20px;animation:float1 4s ease-in-out infinite}
-.h-float2{width:176px;bottom:60px;left:-24px;padding:18px 20px;animation:float2 5s .5s ease-in-out infinite}
-@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-.hf-label{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--hazel);text-transform:uppercase;margin-bottom:6px}
-.hf-val{font-family:var(--cg);font-size:28px;font-weight:600;color:var(--ink);letter-spacing:-.02em;line-height:1}
-.hf-sub{font-size:11px;color:var(--ink3);margin-top:4px}
-.hf-bar{height:3px;background:var(--bg3);border-radius:100px;margin-top:10px;overflow:hidden}
-.hf-bar-fill{height:100%;border-radius:100px;background:var(--blue);width:87%}
+.rrc-footer-label{font-size:11px;font-weight:500;color:var(--ink3)}
+.rrc-footer-val{font-family:var(--cg);font-size:20px;font-weight:600;color:var(--blue);letter-spacing:-.02em}
 
 /* SECTIONS */
 section{padding:120px 64px;position:relative;z-index:1}
@@ -173,7 +190,7 @@ h2 strong{font-weight:700}
 .s-lead{font-size:16px;font-weight:300;color:var(--ink3);line-height:1.8;max-width:520px}
 
 /* ── UPLOAD ANALYSER ── */
-.analyser-bg{background:var(--white)}
+.analyser-bg{background:rgba(255,255,255,0.88);backdrop-filter:blur(2px)}
 .analyser-wrap{
   display:grid;grid-template-columns:1fr 1fr;
   gap:40px;margin-top:60px;align-items:start;
@@ -293,7 +310,7 @@ h2 strong{font-weight:700}
 .ar-d-pct{font-size:12px;font-weight:600;color:var(--ink3);width:36px;text-align:right}
 
 /* DB RECORDS */
-.db-section{background:var(--bg2)}
+.db-section{background:rgba(237,232,223,0.85);backdrop-filter:blur(2px)}
 .records-table-wrap{
   margin-top:40px;background:var(--white);
   border:1px solid var(--border2);border-radius:14px;overflow:hidden;
@@ -352,7 +369,7 @@ h2 strong{font-weight:700}
 .dc-bv{font-size:11px;color:var(--ink);width:30px;text-align:right}
 
 /* SCOPE */
-.scope-bg{background:var(--bg)}
+.scope-bg{background:rgba(245,241,234,0.80)}
 .scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
 .scope-card{background:var(--white);border:1px solid var(--border2);border-radius:16px;padding:36px;transition:all .3s}
 .scope-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(37,99,168,.08)}
@@ -463,35 +480,24 @@ footer p{font-size:12px;color:rgba(255,255,255,.3)}
     </div>
   </div>
   <div class="hero-right">
-    <div class="h-card h-main">
-      <div class="hc-head">
-        <span class="hc-title">Live biomarker scan · Patient 4821</span>
-        <div class="hc-live"><div class="hc-live-dot"></div><span class="hc-live-text">LIVE</span></div>
+    <div class="risk-radar-card">
+      <div class="rrc-head">
+        <span class="rrc-title">Multi-disease risk radar</span>
+        <div class="rrc-badge"><div class="rrc-badge-dot"></div><span class="rrc-badge-text">AI MODEL</span></div>
       </div>
-      <div class="bm-rows">
-        <div class="bm-r"><span class="bm-n">CA-125</span><div class="bm-t"><div class="bm-f hi" style="width:78%;animation-delay:.3s"></div></div><span class="bm-v">78.4</span></div>
-        <div class="bm-r"><span class="bm-n">HE4</span><div class="bm-t"><div class="bm-f warn" style="width:61%;animation-delay:.45s"></div></div><span class="bm-v">61.2</span></div>
-        <div class="bm-r"><span class="bm-n">MUC16</span><div class="bm-t"><div class="bm-f hi" style="width:82%;animation-delay:.6s"></div></div><span class="bm-v">82.1</span></div>
-        <div class="bm-r"><span class="bm-n">BRCA1</span><div class="bm-t"><div class="bm-f warn" style="width:55%;animation-delay:.75s"></div></div><span class="bm-v">55.0</span></div>
-        <div class="bm-r"><span class="bm-n">CEA</span><div class="bm-t"><div class="bm-f ok" style="width:28%;animation-delay:.9s"></div></div><span class="bm-v">28.1</span></div>
-        <div class="bm-r"><span class="bm-n">AFP</span><div class="bm-t"><div class="bm-f ok" style="width:34%;animation-delay:1.05s"></div></div><span class="bm-v">34.7</span></div>
+      <div class="rrc-canvas-wrap">
+        <canvas id="riskCanvas" width="260" height="260"></canvas>
       </div>
-      <div class="result-chip">
-        <div class="rc-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-        <div><div class="rc-main">Ovarian cancer detected</div><div class="rc-sub">Urgent referral recommended</div></div>
-        <div class="rc-conf">91.4%</div>
+      <div class="rrc-legend">
+        <div class="rrc-leg-item"><div class="rrc-leg-dot" style="background:#ef4444"></div><span class="rrc-leg-label">Ovarian Cancer</span><span class="rrc-leg-val" style="color:#ef4444">94%</span></div>
+        <div class="rrc-leg-item"><div class="rrc-leg-dot" style="background:#2563a8"></div><span class="rrc-leg-label">Cardiovascular</span><span class="rrc-leg-val" style="color:#2563a8">92%</span></div>
+        <div class="rrc-leg-item"><div class="rrc-leg-dot" style="background:#8b7355"></div><span class="rrc-leg-label">Type 2 Diabetes</span><span class="rrc-leg-val" style="color:#8b7355">91%</span></div>
+        <div class="rrc-leg-item"><div class="rrc-leg-dot" style="background:#6fa3dc"></div><span class="rrc-leg-label">Alzheimer's</span><span class="rrc-leg-val" style="color:#6fa3dc">87%</span></div>
       </div>
-    </div>
-    <div class="h-card h-float1">
-      <div class="hf-label">Model accuracy</div>
-      <div class="hf-val">94.2%</div>
-      <div class="hf-sub">AUC-ROC · Cancer panel</div>
-      <div class="hf-bar"><div class="hf-bar-fill"></div></div>
-    </div>
-    <div class="h-card h-float2">
-      <div class="hf-label">Detection lead</div>
-      <div class="hf-val">3.2 yrs</div>
-      <div class="hf-sub">Before symptoms appear</div>
+      <div class="rrc-footer">
+        <span class="rrc-footer-label">Ensemble AUC-ROC · All panels</span>
+        <span class="rrc-footer-val">0.942</span>
+      </div>
     </div>
   </div>
 </div>
@@ -781,6 +787,107 @@ const pts=Array.from({length:60},()=>({x:Math.random()*pc.width,y:Math.random()*
 
 // ── NAV ──
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40));
+
+// ── RISK RADAR CHART ──
+(function(){
+  const canvas=document.getElementById('riskCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const cx=130,cy=130,maxR=110;
+  const diseases=[
+    {label:'Ovarian Cancer',value:0.94,color:'#ef4444'},
+    {label:'Cardiovascular',value:0.92,color:'#2563a8'},
+    {label:'Type 2 Diabetes',value:0.91,color:'#8b7355'},
+    {label:"Alzheimer's",value:0.87,color:'#6fa3dc'},
+  ];
+  const N=diseases.length;
+  let progress=0,pulse=0,animDone=false;
+
+  function angleFor(i){return(Math.PI*2/N)*i - Math.PI/2;}
+
+  function draw(t){
+    ctx.clearRect(0,0,260,260);
+
+    // Background rings
+    for(let r=1;r<=5;r++){
+      ctx.beginPath();
+      ctx.arc(cx,cy,(maxR/5)*r,0,Math.PI*2);
+      ctx.strokeStyle=r===5?'rgba(37,99,168,0.18)':'rgba(37,99,168,0.07)';
+      ctx.lineWidth=r===5?1.2:.7;
+      ctx.stroke();
+    }
+
+    // Axis lines
+    for(let i=0;i<N;i++){
+      const a=angleFor(i);
+      ctx.beginPath();
+      ctx.moveTo(cx,cy);
+      ctx.lineTo(cx+Math.cos(a)*maxR, cy+Math.sin(a)*maxR);
+      ctx.strokeStyle='rgba(37,99,168,0.12)';
+      ctx.lineWidth=.8;
+      ctx.stroke();
+    }
+
+    // Animated radar fill
+    const p=Math.min(progress,1);
+    ctx.beginPath();
+    for(let i=0;i<N;i++){
+      const a=angleFor(i);
+      const r=diseases[i].value*maxR*p;
+      const x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.fillStyle='rgba(37,99,168,0.10)';
+    ctx.fill();
+    ctx.strokeStyle='rgba(37,99,168,0.45)';
+    ctx.lineWidth=1.5;
+    ctx.stroke();
+
+    // Axis dots + coloured spokes
+    for(let i=0;i<N;i++){
+      const a=angleFor(i);
+      const r=diseases[i].value*maxR*p;
+      const x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r;
+
+      // coloured line from centre
+      ctx.beginPath();
+      ctx.moveTo(cx,cy);
+      ctx.lineTo(x,y);
+      ctx.strokeStyle=diseases[i].color+'99';
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+
+      // pulsing endpoint dot
+      const pulsedR = animDone ? 5 + Math.sin(pulse + i*1.2)*1.8 : 5*p;
+      ctx.beginPath();
+      ctx.arc(x,y,pulsedR,0,Math.PI*2);
+      ctx.fillStyle=diseases[i].color;
+      ctx.fill();
+      ctx.strokeStyle='#fff';
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+    }
+
+    // Centre dot
+    ctx.beginPath();
+    ctx.arc(cx,cy,5,0,Math.PI*2);
+    ctx.fillStyle='#2563a8';
+    ctx.fill();
+    ctx.strokeStyle='#fff';
+    ctx.lineWidth=2;
+    ctx.stroke();
+
+    if(progress<1){
+      progress+=0.018;
+    } else {
+      animDone=true;
+      pulse+=0.04;
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
 
 // ── COUNTERS ──
 function count(el,end,suf,dec,delay){
